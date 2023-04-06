@@ -1,1 +1,1 @@
-# my-page
+# pinia-store
