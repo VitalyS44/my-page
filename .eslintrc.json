@@ -5,7 +5,7 @@
             "error",
             {
                 "ignoreUrls": true,
-                "code": 100
+                "code": 1000
             }
         ],
         "no-unused-vars": "off",

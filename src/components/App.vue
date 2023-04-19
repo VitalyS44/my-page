@@ -5,29 +5,53 @@
             <h2>Мои любимые фильмы</h2>
         </header>
         <div class="tabs">
-            <button :class="['btn', { btn_green: movieStore.activeTab === 1 }]">
+            <button
+                :class="['btn', { btn_green: movieStore.activeTab === 1 }]"
+                @click="setTab(1)"
+            >
                 Любимые фильмы
             </button>
-            <button :class="['btn', { btn_green: movieStore.activeTab === 2 }]">
+            <button
+                :class="['btn', { btn_green: movieStore.activeTab === 2 }]"
+                @click="setTab(2)"
+            >
                 Поиск
             </button>
         </div>
         <div class="movies" v-if="movieStore.activeTab === 1">
-            <h3>Все фильмы</h3>
+            <div>
+                <h3>
+                    Просмотренные фильмы (Всего:
+                    {{ movieStore.watchedMovies.length }})
+                </h3>
+                <Movie
+                    v-for="movie in movieStore.watchedMovies"
+                    :key="movie.id"
+                    :movie="movie"
+                />
+            </div>
+            <h3>Все фильмы (Всего: {{ movieStore.totalConuntMovies }})</h3>
             <Movie
                 v-for="movie in movieStore.movies"
                 :key="movie.id"
                 :movie="movie"
             />
         </div>
-        <div v-else class="search">Поиск</div>
+        <div v-else class="search">
+            <Search />
+        </div>
     </main>
 </template>
 <script lang="ts" setup>
 import { useMovieStore } from '../stores/MuvieStore';
+import Search from './Search.vue';
 import Movie from './Movie.vue';
 
 const movieStore = useMovieStore();
+
+const setTab = (id: number) => {
+    movieStore.setActiveTab(id);
+};
 </script>
 
 <style lang="scss">
